@@ -2,12 +2,15 @@
 require "SecureRandom"
 
 class Utils
+
+    def self.sortLeagueTable(teams)
+        teams.sort_by(&:points).reverse()
+    end
     
-    #method for printing ordered league table 
+
     def self.printLeagueTable(teams)
-        list = teams.sort_by(&:points).reverse()      
         puts "rank |  team   | points"
-        list.each_with_index do |team, index|
+        teams.each_with_index do |team, index|
             puts (index + 1).to_s + " | " + team.name + " | " + team.points.to_s
         end
     end
@@ -42,9 +45,11 @@ class Utils
             #printLeagueTable(teams)
             teams = teams.rotate(1)
         end
+        teams = sortLeagueTable(teams)
         puts "winner is #{teams[0].name}"
         puts "second is #{teams[1].name}"
         puts "third is #{teams[2].name}"
+        printLeagueTable(teams)
     end
 
 end
